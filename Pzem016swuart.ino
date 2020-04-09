@@ -1,6 +1,6 @@
 /*
   An Arduino Sketch for reading data from a PZEM-014 or PZEM-016 with the software uart, Arduino 1.8.10
-  EvertDekker.com 2018~2020 Note, not tested with hardware.
+  EvertDekker.com 2018~2020 Note, not tested with NodeMcu V1.0
   
   If you want to use slaveid function to change the slaveid on the fly, you need to modify the ModbusMaster library (Or get the copy from my website)
   In ModbusMaster.h add at line 78
