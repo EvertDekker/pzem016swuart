@@ -16,12 +16,12 @@
 #include <SoftwareSerial.h>
 
 
-#define RXD2 16 //Gpio pins SoftwareSerial
-#define TXD2 17
+#define RXD2 D7 //Gpio pins SoftwareSerial
+#define TXD2 D6
 SoftwareSerial Pzemserial(RXD2, TXD2);
 
-#define MAX485_DE      19  // We're using a MAX485-compatible RS485 Transceiver. The Data Enable and Receiver Enable pins are hooked up as follows:
-#define MAX485_RE_NEG  18
+#define MAX485_DE      D5  // We're using a MAX485-compatible RS485 Transceiver. The Data Enable and Receiver Enable pins are hooked up as follows:
+#define MAX485_RE_NEG  D4
 
 ModbusMaster node;
 static uint8_t pzemSlaveAddr = 0x01;
@@ -39,7 +39,7 @@ void setup() {
   node.preTransmission(preTransmission);  // Callbacks allow us to configure the RS485 transceiver correctly
   node.postTransmission(postTransmission);
 
-  //changeAddress(0x01, 0x02);
+ // changeAddress(0x06, 0x01);
   /* By Uncomment the function in the above line you can change the slave address from one of the nodes, only need to be done ones. Preverable do this only with 1 slave in the network.
      changeAddress(OldAddress, Newaddress)
      If you f*ck it up or don't know the new address anymore, you can use the broadcast address 0XF8 as OldAddress to change the slave address. Use this with one slave ONLY in the network.
@@ -69,7 +69,7 @@ void setup() {
 void loop() {
   uint8_t result;
 
-  for (pzemSlaveAddr = 1; pzemSlaveAddr < 3; pzemSlaveAddr++) {  // Loop all the Pzem sensors
+  for (pzemSlaveAddr = 1; pzemSlaveAddr < 2; pzemSlaveAddr++) {  // Loop all the Pzem sensors
     node.slaveid(pzemSlaveAddr);          //Switch to another slave address. NOTE: You can only use this function is you have modified the ModbusMaster library (Or get the copy from my website)
     Serial.print("Pzem Slave ");
     Serial.print(pzemSlaveAddr);
@@ -186,4 +186,3 @@ void changeAddress(uint8_t OldslaveAddr, uint8_t NewslaveAddr)  //Change the sla
     Serial.print(" ");
   }
 }
-
